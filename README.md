@@ -2,8 +2,6 @@
 
 <div align="center">
 
-![Triton Logo](https://raw.githubusercontent.com/triton-lang/triton/main/docs/_static/img/triton_logo.png)
-
 **A Language and Compiler for Customizable Deep Learning Kernels**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -16,7 +14,7 @@
 
 ## 📖 项目简介
 
-本项目是 Triton GPU编程框架的深度技术分析，通过8篇详细的技术博客，全面剖析Triton的架构设计和核心实现。Triton是一个由OpenAI开发的GPU编程语言和编译器，旨在简化GPU内核的编写，同时提供接近手写CUDA的性能。
+本项目是 Triton GPU编程框架的深度技术分析，通过13篇详细的技术博客，全面剖析Triton的架构设计和核心实现。Triton是一个由OpenAI开发的GPU编程语言和编译器，旨在简化GPU内核的编写，同时提供接近手写CUDA的性能。
 
 本项目深入分析了Triton的：
 - 编译器前端与IR设计
@@ -29,7 +27,11 @@
 
 ## 📚 技术博客系列
 
-我们精心撰写了8篇深度技术分析文章，涵盖了Triton的各个核心技术模块：
+本项目包含两个系列的深度技术分析文章，共计13篇，全面覆盖Triton的架构设计和核心实现：
+
+### 🎯 深度代码分析系列 (code-analysis/)
+
+我们精心撰写了8篇深度代码分析文章，深入剖析Triton的核心技术模块：
 
 ### 🏗️ 架构与编译
 
@@ -183,6 +185,85 @@ python/test/unit/language/test_compile_errors.py:18 - 错误测试框架
 - 用户友好的错误消息
 - 结构化的错误分类和处理
 
+### 📖 架构概览系列 (tech-blog/)
+
+此外，我们还提供了5篇架构概览和技术原理分析文章，从宏观角度理解Triton的设计理念：
+
+#### 🏗️ [1. Triton架构概览与设计理念](tech-blog/01-triton-architecture-overview.md)
+**核心技术：块级编程模型、创新设计理念、架构对比分析**
+
+深入解析Triton的创新架构设计，包括块级编程模型的设计理念、与传统GPU编程框架的对比分析，以及实际应用案例。
+
+**核心代码位置**：
+- `python/triton/__init__.py`: 核心API定义
+- `python/triton/compiler/compiler.py`: 编译器主流程
+- `lib/Dialect/TritonGPU/Transforms/`: GPU优化变换
+
+**设计亮点**：
+- 块级编程模型 vs 传统线程级编程
+- 模块化设计和分层架构
+- 与其他GPU编程框架的对比分析
+
+#### 🔧 [2. 编译器前端与IR设计详解](tech-blog/02-compiler-frontend-and-ir-design.md)
+**核心技术：Python AST解析、访问者模式、SSA构造、IR设计**
+
+详细分析Triton编译器前端的设计与实现，包括Python AST解析、类型系统、SSA构造和Triton IR的设计原理。
+
+**核心代码位置**：
+- `python/triton/compiler/code_generator.py`: AST到IR转换
+- `python/triton/language/core.py`: 语言核心定义
+- `lib/Dialect/Triton/IR/TritonOps.td`: IR操作定义
+
+**技术特点**：
+- 访问者模式的安全实现
+- 强类型系统设计
+- Triton IR的创新架构
+
+#### ⚡ [3. 代码优化引擎核心技术](tech-blog/03-optimization-engine-core-technologies.md)
+**核心技术：内存合并、矩阵乘法加速、数据预取、循环融合**
+
+深入分析Triton的代码优化引擎，包括各种关键优化Pass的实现原理和技术细节。
+
+**核心代码位置**：
+- `lib/Dialect/TritonGPU/Transforms/Coalesce.cpp`: 内存合并优化
+- `lib/Dialect/TritonGPU/Transforms/AccelerateMatmul.cpp`: 矩阵乘法加速
+- `lib/Dialect/TritonGPU/Transforms/Prefetch.cpp`: 数据预取优化
+
+**优化技术**：
+- 内存合并优化算法
+- TensorCore硬件加速
+- 循环融合和数据预取
+
+#### 🚀 [4. GPU代码生成与后端优化](tech-blog/04-gpu-code-generation-and-backend-optimization.md)
+**核心技术：TTGIR到LLVM IR转换、张量操作实现、多GPU后端支持**
+
+详细解析Triton的GPU代码生成过程，包括从高级IR到机器码的完整转换链和后端优化技术。
+
+**核心代码位置**：
+- `lib/Conversion/TritonGPUToLLVM/`: IR转换实现
+- `lib/Target/NVPTX/`: NVIDIA GPU后端
+- `lib/Target/AMDGPU/`: AMD GPU后端
+
+**生成技术**：
+- 多层次IR转换
+- 目标架构优化
+- PTX/SASS代码生成
+
+#### 🔧 [5. 运行时系统与性能调优](tech-blog/05-runtime-system-and-performance-tuning.md)
+**核心技术：JIT编译、自动调优、缓存系统、内存管理**
+
+深入分析Triton的运行时系统设计，包括JIT编译管理、性能调优引擎、缓存系统和内存管理等关键技术。
+
+**核心代码位置**：
+- `python/triton/runtime/autotuner.py`: 自动调优引擎
+- `python/triton/runtime/cache.py`: 缓存系统
+- `python/triton/runtime/jit.py`: JIT编译管理
+
+**运行时特性**：
+- 智能自动调优
+- 多层缓存架构
+- 高效内存管理
+
 ## 🎯 学习价值
 
 ### 🎓 适合读者
@@ -233,10 +314,17 @@ cd triton-learning
 
 ### 📖 阅读建议
 
+#### 🎯 深度代码分析系列阅读路径
 1. **按顺序阅读**: 建议按照博客编号顺序阅读，循序渐进
 2. **代码对照**: 阅读时对照Triton官方源码，加深理解
 3. **实践验证**: 运行示例代码，验证理论分析
 4. **实验探索**: 使用提供的调试工具进行实验
+
+#### 📖 架构概览系列阅读路径
+1. **先宏观后微观**: 建议先阅读架构概览系列，建立整体认知
+2. **理论结合实践**: 将架构理念与代码分析结合理解
+3. **对比学习**: 与其他GPU编程框架进行对比分析
+4. **应用导向**: 结合实际应用场景理解设计决策
 
 ### 🔧 实验工具
 
@@ -303,8 +391,7 @@ triton.compile(..., dump_ir=True)
 ---
 
 <div align="center">
-
-*Made with ❤️ by Claude Code Assistant*
+*Made with ❤️ by Shizheng Li*
 
 **最后更新：2025年10月**
 
